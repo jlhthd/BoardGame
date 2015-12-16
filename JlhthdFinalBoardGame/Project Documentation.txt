@@ -1,0 +1,14 @@
+Required Elements
+1. Object Oriented Elements:
+	All of the controllers extend LoadableScene which is an abstract class.  Also, PlayerColorObject, BeadColorObject, and BeadButton all implement TableGeneric which is an empty interface specifically for polymorphism.
+2. Code Elements
+	Table uses an ArrayList of ArrayLists of generics.
+	The save in BoardManager throws IOExceptions.  Table also throws custom errors when something outside of its bounds or a null pointed exception would be thrown.
+3. Clearly defined model
+	BoardManager should handle all of the logic and data storage.  This is what I am least confident on.  Some of the actual logic of how the game works is based on which buttons are active which is handled in the controller.  Trying to separate which buttons are active in the UI from the logic of the game would take a considerable amount of rewriting and would require more duplication of information between the UI and the model.  As is, what color beads are is already duplicated.  There are tables for both the model and the buttons, but the buttons still need to include what color they are so that it can properly display.  I specifically designed this to try and keep the model and the control separate, but I was experimenting when I built the actual game logic.  When I noticed that there was some logic used in the controller, it was fairly late in development and proved difficult for me to change.  I still tried to keep the actual active checks out of the controller, but I still have the phase selection in the controller.  The primary difference between this and how it really should be is that the logic of picking which set of buttons to loop through is actually in the controller.  I may be shooting myself in the foot by mentioning all this, but I just wanted to say that I did try and put thought into the design.
+4. Multiple Scenes
+	There are three different scenes: Board, MainMenu, and Score.
+5. About
+	About can be selected from the menu.  An alert dialogue should pop up.  For some reason the width didn't seem to work for me, changing the horizontal offset instead of the width of the window.
+6. Save
+	The program automatically saves at the start of each turn.  Games can be resumed from the main menu.  If there isn't a save file currently, the resume button should be inactive.  I used serialization for the save as I don't want the save to be compatible if I have updated the game logic, I don't particularly want it to be easy for people to read the save files to cut down on the possibility of cheating, and it was a fair amount easier to automatically serialized the tables than to have to write the logic for saving a table in some other format.
